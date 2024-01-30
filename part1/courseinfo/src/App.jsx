@@ -4,15 +4,19 @@ const Header = (props) => {
   )
 }
 
+const Part = (props) => {
+  return(
+    <p> {props.part} {props.exercise} </p>
+  )
+}
+
 const Content = (props) => {
   let zip = props.parts.map((part, i) => [part, props.exercises[i]])
   return (
     <>
       {zip.map((content, index) => {
         return (
-          <p key={index}>
-            {content[0]} {content[1]}
-          </p>
+          <Part part={content[0]} exercise={content[1]}/>
         );
       })}
     </>
