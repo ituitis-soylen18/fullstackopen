@@ -6,7 +6,7 @@ const Button = ({state, setState, text}) => {
   )
 }
 
-const Statistic = ({state, text}) => 
+const StatisticLine = ({state, text}) => 
     <div>{text} {state}</div>
 
 const Statistics = ({good, neutral, bad, all}) => {
@@ -22,12 +22,12 @@ const Statistics = ({good, neutral, bad, all}) => {
   return(
     <>
       <h1>statistics</h1>
-      <Statistic state={good} text="good"/>
-      <Statistic state={neutral} text="neutral"/>
-      <Statistic state={bad} text="bad"/>
-      <Statistic state={all} text="all"/>
-      <Statistic state={(good-bad)/all} text="average"/>
-      <Statistic state={parseFloat(good/all * 100) + " %"} text="positive"/>
+      <StatisticLine state={good} text="good"/>
+      <StatisticLine state={neutral} text="neutral"/>
+      <StatisticLine state={bad} text="bad"/>
+      <StatisticLine state={all} text="all"/>
+      <StatisticLine state={(good-bad)/all} text="average"/>
+      <StatisticLine state={parseFloat(good/all * 100) + " %"} text="positive"/>
     </>
   )
 }
