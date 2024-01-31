@@ -10,6 +10,15 @@ const Statistic = ({state, text}) =>
     <div>{text} {state}</div>
 
 const Statistics = ({good, neutral, bad, all}) => {
+  if (all === 0) {
+    return(
+      <>
+        <h1>statistics</h1>
+        <div>No feedback given</div>
+      </>
+    )
+  }
+
   return(
     <>
       <h1>statistics</h1>
