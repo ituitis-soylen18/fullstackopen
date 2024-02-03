@@ -40,6 +40,14 @@ const App = () => {
     setNewNumber("");
   };
 
+  const handleDelete = (person) => {
+    if (confirm(`Delete ${person.name} ?`)) {
+      personService
+        .remove(person)
+        .then(setPersons(persons.filter((p) => p !== person)));
+    }
+  };
+
   console.log(newName);
   console.log(newNumber);
   return (
@@ -56,7 +64,7 @@ const App = () => {
         newNumberChange={handleInputChange(setNewNumber)}
       />
       <h2>Numbers</h2>
-      <PersonsList persons={shownPersons} />
+      <PersonsList persons={shownPersons} handleDelete={handleDelete} />
     </div>
   );
 };
