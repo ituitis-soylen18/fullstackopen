@@ -3,12 +3,14 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import PersonsList from "./components/PersonsList";
 import personService from "./services/persons";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filterText, setFilterText] = useState("");
+  const [message, setMessage] = useState(["", false]);
 
   useEffect(() => {
     personService.getAll().then((response) => setPersons(response));
@@ -45,11 +47,15 @@ const App = () => {
               )
             )
           );
+        setMessage([`Updated ${newName}`, false]);
+        setTimeout(() => setMessage(["", false]), 4000);
       }
     } else {
       personService
         .create(newPerson)
         .then((response) => setPersons(persons.concat(response)));
+      setMessage([`Added ${newName}`, false]);
+      setTimeout(() => setMessage(["", false]), 4000);
     }
     setNewName("");
     setNewNumber("");
@@ -59,15 +65,20 @@ const App = () => {
     if (confirm(`Delete ${person.name} ?`)) {
       personService
         .remove(person)
-        .then(setPersons(persons.filter((p) => p !== person)));
+        .then(setPersons(persons.filter((p) => p !== person)))
+        .catch((error) => {
+          setMessage(
+            [`Information of ${person.name} has aleady been removed from server`, true]
+          );
+          setTimeout(() => setMessage(["", false]), 4000);
+        });
     }
   };
 
-  console.log(newName);
-  console.log(newNumber);
   return (
     <div onSubmit={handleSubmit}>
       <h2>Phonebook</h2>
+      {message === "" ? null : <Notification message={message} />}
       <Filter
         onChange={handleInputChange(setFilterText)}
         filterText={filterText}
