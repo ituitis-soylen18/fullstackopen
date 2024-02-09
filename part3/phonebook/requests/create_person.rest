@@ -1,0 +1,28 @@
+GET http://localhost:3001/api/persons/
+
+###
+
+POST  http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Frank Collier",
+    "number": "65-88-3920471"
+}
+
+### NUMBER ERROR
+POST  http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Frank Collier"
+}
+
+### NAME ERROR
+
+POST  http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "number": "65-88-3920471"
+}
