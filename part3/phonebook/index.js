@@ -4,13 +4,14 @@ const app = express();
 let data = require("./data.json");
 
 morgan.token("body", function (req, res) {
-  const body =JSON.stringify(req.body)
-  if(body === "{}"){
+  const body = JSON.stringify(req.body);
+  if (body === "{}") {
     return " ";
   }
   return body;
 });
 
+app.use(express.static('dist'))
 app.use(express.json());
 //app.use(morgan("tiny"));
 app.use(
@@ -76,7 +77,7 @@ app.get("/info", (request, response) => {
   response.send(content);
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running port ${PORT}`);
 });
