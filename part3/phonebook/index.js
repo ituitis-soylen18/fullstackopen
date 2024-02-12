@@ -1,5 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
+require("dotenv").config();
+const Person = require("./models/person");
 const app = express();
 let data = require("./data.json");
 
@@ -11,7 +13,7 @@ morgan.token("body", function (req, res) {
   return body;
 });
 
-app.use(express.static('dist'))
+app.use(express.static("dist"));
 app.use(express.json());
 //app.use(morgan("tiny"));
 app.use(
@@ -19,7 +21,7 @@ app.use(
 );
 
 app.get("/api/persons", (request, response) => {
-  response.json(data);
+  Person.find({}).then((people) => response.json(people));
 });
 
 app.post("/api/persons", (request, response) => {
